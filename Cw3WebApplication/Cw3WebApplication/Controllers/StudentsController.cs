@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cw3WebApplication.Models;
+using Cw3WebApplication.DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -12,6 +13,13 @@ namespace Cw3WebApplication.Controllers
     [Route("api/students")]
     public class StudentsController : ControllerBase
     {
+        private readonly IDbService _dbService;
+
+        public StudentsController(IDbService service)
+        {
+            _dbService = service;
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetStudent(int id)
         {
@@ -27,16 +35,16 @@ namespace Cw3WebApplication.Controllers
         }
 
         [HttpGet]
-        public string GetStudents([FromQuery] string orderBy) 
+        public IActionResult GetStudents([FromQuery] string orderBy) 
         {
-            return $"Kowalski, Malewski, Andrzejewski sortowanie={orderBy}";
+            return Ok(_dbService.GetStudents());
         }
 
         [HttpPost]
         public IActionResult CreateStudent(Student student) 
         {
             student.IndexNumber = $"s{new Random().Next(1, 10000)}";
-
+            //_dbService.AddStudent(student);
             return Ok(student);
         }
 
