@@ -40,6 +40,24 @@ namespace Cw3WebApplication.Controllers
             return Ok(student);
         }
 
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateStudent(Student student, int id) 
+        {
+            var studentId = student.IdStudent;
+            // update student
+
+            return Ok("Akutalizacja dokonczona dla studenta " + id);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteStudent(int id) 
+        {
+            // check if student exists
+
+            return Ok("Usuwanie ukonczone dla studenta id = " + id);
+        }
+
     }
 
 }
