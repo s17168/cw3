@@ -25,6 +25,12 @@ namespace Cw3WebApplication.Controllers
             return NotFound("Nie znaleziono podanego studenta");
         }
 
+        [HttpGet]
+        public string GetStudents(string orderBy) 
+        {
+            return $"Kowalski, Malewski, Andrzejewski sortowanie={orderBy}";
+        }
+
     }
 
 }
